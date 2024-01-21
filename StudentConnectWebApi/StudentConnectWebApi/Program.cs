@@ -25,9 +25,13 @@ builder.Services.AddAuthorizationBuilder();
 
 
 // config db context
-builder.Services.AddDbContext<AppDbContext>(
-   options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=appdb;Trusted_Connection=True;")
-);
+// config db context
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("sqlConnection"),
+        b => b.MigrationsAssembly("StudentConnectWebApi"));
+});
+
 
 
 builder.Services.AddIdentityCore<AppUser>()

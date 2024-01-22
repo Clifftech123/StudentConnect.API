@@ -59,3 +59,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+// OPNE IT IN THE BORSWER 
+// https://localhost:5001/swagger/index.html

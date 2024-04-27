@@ -20,8 +20,9 @@ namespace StudentConnect.API.Controllers
         private readonly ITokenService _tokenService;
 
 
+
         private const int StatusCodeInvalid = 0;
-      
+
 
         public AuthorizationController(DatabaseContext databaseContext,
             UserManager<ApplicationUser> userManager,
@@ -38,16 +39,12 @@ namespace StudentConnect.API.Controllers
 
 
         // Register User
-        private const int StatusCodeSuccess = 1;
-        private const string MessageInvalidFields = "Please pass all the required fields";
-        private const string MessageUserExists = "User already exists!";
-        private const string MessageUserCreationFailed = "User creation failed! Please check user details and try again.";
-        private const string MessageRegistrationSuccess = "Successfully registered";
+
 
         public async Task<IActionResult> Registration([FromBody] RegistrationModel model)
         {
             var status = await RegisterUser(model, UserRoles.User);
-            return status.StatusCode == StatusCodeSuccess ? Ok(status) : BadRequest(status);
+            return status.StatusCode == StatusMessages.StatusCodeSuccess ? Ok(status) : BadRequest(status);
         }
 
         // Register Admin
@@ -67,7 +64,7 @@ namespace StudentConnect.API.Controllers
             if (!ModelState.IsValid)
             {
                 status.StatusCode = StatusCodeInvalid;
-                status.Message = MessageInvalidFields;
+                status.Message = StatusMessages.MessageInvalidFields;
                 return status;
             }
 
@@ -76,7 +73,7 @@ namespace StudentConnect.API.Controllers
             if (userExists != null)
             {
                 status.StatusCode = StatusCodeInvalid;
-                status.Message = MessageUserExists;
+                status.Message = StatusMessages.MessageUserExists;
                 return status;
             }
 
@@ -93,25 +90,19 @@ namespace StudentConnect.API.Controllers
             if (!result.Succeeded)
             {
                 status.StatusCode = StatusCodeInvalid;
-                status.Message = MessageUserCreationFailed;
+                status.Message = StatusMessages.MessageUserCreationFailed;
                 return status;
             }
 
             // Add user to role
             await userManager.AddToRoleAsync(user, role);
 
-            status.StatusCode = StatusCodeSuccess;
-            status.Message = MessageRegistrationSuccess;
+            status.StatusCode = StatusMessages.StatusCodeSuccess;
+            status.Message = StatusMessages.MessageRegistrationSuccess;
             return status;
         }
 
 
-
-        // Login User
-
-        private const string MessageInvalidCredentials = "Invalid Username or Password";
-        private const string MessageLoginSuccess = "Logged in";
-        private const string MessageServerError = "An error occurred while processing your request";
 
         // Login User
         public async Task<IActionResult> Login([FromBody] LoginModel model)
@@ -122,7 +113,7 @@ namespace StudentConnect.API.Controllers
                 return Ok(new LoginResponse
                 {
                     StatusCode = StatusCodeInvalid,
-                    Message = MessageInvalidCredentials,
+                    Message = StatusMessages.MessageInvalidCredentials,
                     Token = "",
                     Expiration = null
                 });
@@ -167,7 +158,7 @@ namespace StudentConnect.API.Controllers
             catch (Exception ex)
             {
                 // Log the exception here
-                return BadRequest(MessageServerError);
+                return BadRequest(StatusMessages.MessageServerError);
             }
 
             return Ok(new LoginResponse
@@ -177,22 +168,15 @@ namespace StudentConnect.API.Controllers
                 Token = token.TokenString,
                 RefreshToken = refreshToken,
                 Expiration = token.ValidTo,
-                StatusCode = StatusCodeSuccess,
-                Message = MessageLoginSuccess
+                StatusCode = StatusMessages.StatusCodeSuccess,
+                Message = StatusMessages.MessageLoginSuccess
             });
         }
 
 
 
 
-        // Check password
-
-
-        private const string MessageUserNotFound = "User not found";
-        private const string MessageInvalidCurrentPassword = "Invalid current password";
-        private const string MessagePasswordChangeFailed = "Password change failed";
-        private const string MessagePasswordChangedSuccessfully = "Password changed successfully";
-
+        // Change Password
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordModel model)
         {
@@ -200,7 +184,7 @@ namespace StudentConnect.API.Controllers
             if (!ModelState.IsValid)
             {
                 status.StatusCode = StatusCodeInvalid;
-                status.Message = MessageInvalidFields;
+                status.Message = StatusMessages.MessageInvalidFields;
                 return BadRequest(status);
             }
 
@@ -209,7 +193,7 @@ namespace StudentConnect.API.Controllers
             if (user is null)
             {
                 status.StatusCode = StatusCodeInvalid;
-                status.Message = MessageUserNotFound;
+                status.Message = StatusMessages.MessageUserNotFound;
                 return BadRequest(status);
             }
 
@@ -217,7 +201,7 @@ namespace StudentConnect.API.Controllers
             if (!await userManager.CheckPasswordAsync(user, model.CurrentPassword))
             {
                 status.StatusCode = StatusCodeInvalid;
-                status.Message = MessageInvalidCurrentPassword;
+                status.Message = StatusMessages.MessageInvalidCurrentPassword;
                 return BadRequest(status);
             }
 
@@ -228,18 +212,18 @@ namespace StudentConnect.API.Controllers
                 if (!result.Succeeded)
                 {
                     status.StatusCode = StatusCodeInvalid;
-                    status.Message = MessagePasswordChangeFailed;
+                    status.Message = StatusMessages.MessagePasswordChangeFailed;
                     return BadRequest(status);
                 }
             }
             catch (Exception ex)
             {
                 // Log the exception here
-                return BadRequest(MessageServerError);
+                return BadRequest(StatusMessages.MessageServerError);
             }
 
-            status.StatusCode = StatusCodeSuccess;
-            status.Message = MessagePasswordChangedSuccessfully;
+            status.StatusCode = StatusMessages.StatusCodeSuccess;
+            status.Message = StatusMessages.MessagePasswordChangedSuccessfully;
             return Ok(status);
         }
 

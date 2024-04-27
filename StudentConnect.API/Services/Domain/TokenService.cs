@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 using StudentConnect.API.Models.DTO;
 using StudentConnect.API.Repositories.Abstract;
 using System.IdentityModel.Tokens.Jwt;
@@ -11,7 +10,7 @@ namespace StudentConnect.API.Repositories.Domain
 {
     public class TokenService : ITokenService
     {
-       private readonly IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
 
         public TokenService(IConfiguration configuration)
         {
@@ -24,8 +23,8 @@ namespace StudentConnect.API.Repositories.Domain
         {
             var tokenValidationParameters = new TokenValidationParameters
             {
-            
-               ValidateAudience = false,
+
+                ValidateAudience = false,
                 ValidateIssuer = false,
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"])),
@@ -33,7 +32,7 @@ namespace StudentConnect.API.Repositories.Domain
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
-             SecurityToken securityToken;
+            SecurityToken securityToken;
 
             // principal 
 
@@ -42,7 +41,7 @@ namespace StudentConnect.API.Repositories.Domain
 
 
             if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
-                
+
                 // Toso: Adding a custom exception
                 throw new SecurityTokenException("Invalid token");
 
@@ -53,7 +52,7 @@ namespace StudentConnect.API.Repositories.Domain
         // Generate a random refresh token
         public string GetRefreshToken()
         {
-           var randomNumber = new byte[32];
+            var randomNumber = new byte[32];
             using (var rng = RandomNumberGenerator.Create())
             {
                 rng.GetBytes(randomNumber);

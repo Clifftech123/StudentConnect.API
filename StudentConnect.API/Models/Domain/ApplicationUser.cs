@@ -13,6 +13,6 @@ namespace StudentConnect.API.Models.Domain
             get { return FirstName + " " + LastName; }
         }
         public string School { get; set; }
-
+        public string? Name { get; internal set; }
     }
 }

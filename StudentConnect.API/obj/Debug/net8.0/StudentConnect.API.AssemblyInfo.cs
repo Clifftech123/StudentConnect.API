@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StudentConnect.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7aa59743395719a5a4469df236685183623077d4")]
 [assembly: System.Reflection.AssemblyProductAttribute("StudentConnect.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StudentConnect.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

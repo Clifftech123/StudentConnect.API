@@ -3,7 +3,7 @@ using System.Security.Claims;
 
 namespace StudentConnect.API.Repositories.Abstract
 {
-    public interface ITokenService
+    public interface IAuthenticationService
     {
         TokenResponse GetToken(IEnumerable<Claim> claim);
         string GetRefreshToken();

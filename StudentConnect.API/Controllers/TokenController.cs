@@ -6,23 +6,22 @@ using StudentConnect.API.Repositories.Abstract;
 
 namespace StudentConnect.API.Controllers
 {
-    [Route("api/[controller]/{action}")]
+  
     [ApiController]
+    [Route("api/account/v1")]
     public class TokenController : ControllerBase
     { 
         private readonly  DatabaseContext databaseContext;
-        private readonly ITokenService tokenService;
+        private readonly IAuthenticationService tokenService;
 
-        public TokenController(DatabaseContext databaseContext, ITokenService tokenService)
+        public TokenController(DatabaseContext databaseContext, IAuthenticationService tokenService)
         {
             this.databaseContext = databaseContext;
             this.tokenService = tokenService;
         }
 
         // Refresh Token
-
-
-        [HttpGet]
+        [HttpGet("refresh-token")]
         public IActionResult Refresh (RefreshTokenRequest tokenRequest)
         {
             if (tokenRequest is null)
@@ -53,8 +52,12 @@ namespace StudentConnect.API.Controllers
         }
 
         // Revoke Token
-        [HttpPost, Authorize]
 
+
+        // : TO ADDING OF  Authorize
+
+
+        [HttpPost("removke")]
         public IActionResult Revoke()
         {
             try

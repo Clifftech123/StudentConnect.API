@@ -10,14 +10,13 @@ using System.Security.Claims;
 namespace StudentConnect.API.Controllers
 {
 
-    [Route("api/[controller]/{action}")]
     [ApiController]
     public class AuthorizationController : ControllerBase
     {
         private readonly DatabaseContext databaseContext;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
-        private readonly ITokenService _tokenService;
+        private readonly IAuthenticationService _tokenService;
 
 
 
@@ -27,7 +26,7 @@ namespace StudentConnect.API.Controllers
         public AuthorizationController(DatabaseContext databaseContext,
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole>
-            roleManager, ITokenService tokenService
+            roleManager, IAuthenticationService tokenService
             )
         {
             this.databaseContext = databaseContext;
@@ -106,8 +105,7 @@ namespace StudentConnect.API.Controllers
 
 
         // Login User
-
-        [HttpPost ("login")]
+        [HttpPost("login")]
 
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
@@ -181,7 +179,6 @@ namespace StudentConnect.API.Controllers
 
 
         // Change Password
-      
         [HttpPost("ChangePassword")]
         public async Task<IActionResult> ChangePassword(ChangePasswordModel model)
         {

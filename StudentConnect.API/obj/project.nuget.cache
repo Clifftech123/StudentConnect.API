@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "GlzUAoV0iP17jPYcooS4jaSLWxaCwu60uZ+wS1DYGGx5ge7KedczK661gtIOjSZeFbAt3857ZKh2QyYuFVp4cg==",
+  "dgSpecHash": "2JHdTezZ5wsmhADcngF0g6z29DWLRh6dP+6z3P+inlqmzVM/7XMkh78RgbTaD2ph8hT0i6xVLOG+ihIni7NhrA==",
   "success": true,
   "projectFilePath": "D:\\Dotnet\\StudentConnect-sever\\StudentConnect.API\\StudentConnect.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\opoku\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\opoku\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\opoku\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
+    "C:\\Users\\opoku\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
+    "C:\\Users\\opoku\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.5.1\\fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
     "C:\\Users\\opoku\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\opoku\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
     "C:\\Users\\opoku\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",

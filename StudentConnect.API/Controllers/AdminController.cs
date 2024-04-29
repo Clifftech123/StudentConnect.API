@@ -4,13 +4,13 @@ using StudentConnect.API.Models.DTO;
 
 namespace StudentConnect.API.Controllers
 {
-    [Route("api/[controller]/{action}")]
+
     [ApiController]
     [Authorize(Roles = "Admin")]
     public class AdminController : ControllerBase
     {
 
-        [HttpGet]
+        [HttpGet("admin")]
         public IActionResult GetData()
         {
             var status = new Status();

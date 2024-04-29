@@ -8,11 +8,11 @@ using System.Text;
 
 namespace StudentConnect.API.Repositories.Domain
 {
-    public class TokenService : ITokenService
+    public class AuthenticationService : IAuthenticationService
     {
         private readonly IConfiguration _configuration;
 
-        public TokenService(IConfiguration configuration)
+        public AuthenticationService(IConfiguration configuration)
         {
             _configuration = configuration;
         }

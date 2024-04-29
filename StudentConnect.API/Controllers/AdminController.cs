@@ -10,6 +10,7 @@ namespace StudentConnect.API.Controllers
     public class AdminController : ControllerBase
     {
 
+        [HttpGet]
         public IActionResult GetData()
         {
             var status = new Status();

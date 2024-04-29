@@ -13,6 +13,8 @@
 
         public string School { get; set; }
 
+        public String  Role { get; set; }
+
 
     }
 }

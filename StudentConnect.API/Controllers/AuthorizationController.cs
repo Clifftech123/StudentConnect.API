@@ -40,20 +40,21 @@ namespace StudentConnect.API.Controllers
 
         // Register User
 
-
+        [HttpPost("Registration")]
         public async Task<IActionResult> Registration([FromBody] RegistrationModel model)
         {
-            var status = await RegisterUser(model, UserRoles.User);
+            var status = await RegisterUser(model, UserRoles.Student);
             return status.StatusCode == StatusMessages.StatusCodeSuccess ? Ok(status) : BadRequest(status);
         }
 
         // Register Admin
-        [HttpPost]
+        [HttpPost("RegistrationAdmin")]
         public async Task<IActionResult> RegistrationAdmin([FromBody] RegistrationModel model)
         {
             var status = await RegisterUser(model, UserRoles.Admin);
             return Ok(status);
         }
+
 
 
         // Register New User
@@ -105,6 +106,9 @@ namespace StudentConnect.API.Controllers
 
 
         // Login User
+
+        [HttpPost ("login")]
+
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             var user = await userManager.FindByNameAsync(model.Username);
@@ -177,7 +181,8 @@ namespace StudentConnect.API.Controllers
 
 
         // Change Password
-        [HttpPost]
+      
+        [HttpPost("ChangePassword")]
         public async Task<IActionResult> ChangePassword(ChangePasswordModel model)
         {
             var status = new Status();

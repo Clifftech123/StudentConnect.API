@@ -21,6 +21,8 @@ namespace StudentConnect.API.Controllers
 
         // Refresh Token
 
+
+        [HttpGet]
         public IActionResult Refresh (RefreshTokenRequest tokenRequest)
         {
             if (tokenRequest is null)

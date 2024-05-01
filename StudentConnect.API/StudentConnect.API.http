@@ -1,6 +1,0 @@
-@StudentConnect.API_HostAddress = http://localhost:5064
-
-GET {{StudentConnect.API_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

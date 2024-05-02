@@ -1,11 +1,13 @@
 ﻿
 
+using StudentConnect.API.src.Exceptions;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 namespace StudentConnect.API.src.Middlewares
 {
     public class GlobalErrorHandler
     {
+        private readonly RequestDelegate _next;
         public GlobalErrorHandler(RequestDelegate next)
         {
             _next = next;

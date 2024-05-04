@@ -1,4 +1,5 @@
-﻿using System.Net.NetworkInformation;
+﻿using StudentConnect.API.src.Infrastructure.Enums;
+using System.Net.NetworkInformation;
 
 namespace StudentConnect.API.src.Models.Dto
 {
@@ -7,7 +8,8 @@ namespace StudentConnect.API.src.Models.Dto
         public  Guid guid { get; set; }
 
         public string Name { get; set; }
-
+       
+         
         public string Email { get; set; }
 
         public DateTime LastLogin { get; set; }

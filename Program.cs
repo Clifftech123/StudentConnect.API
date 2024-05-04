@@ -1,13 +1,28 @@
+using StudentConnect.API.src.Extensions;
+using StudentConnect.API.src.Middlewares;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
+
+builder.Services
+    .ConfigureMsSqlServer(builder.Configuration)
+                .ConfigureBusinessServices()
+                .ConfigureIdentity(builder.Configuration)
+                .ConfigureJwtAuthentication(builder.Configuration)
+                .ConfigureBusinessServices();
+
+
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddCors();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseMiddleware<GlobalErrorHandler>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -16,7 +31,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(builder =>
+{
+    builder.AllowAnyOrigin()
+           .AllowAnyMethod()
+           .AllowAnyHeader();
+});
+
 app.UseAuthorization();
+app.UseMiddleware<BanCheckMiddleware>();
 
 app.MapControllers();
 

@@ -38,4 +38,4 @@ namespace StudentConnect.API.src.Middlewares
         }
     }
 }
-}
+

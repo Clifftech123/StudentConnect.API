@@ -1,19 +1,20 @@
 ﻿using StudentConnect.API.src.Infrastructure.Enums;
 using StudentConnect.API.src.Models.Dto;
 
-namespace StudentConnect.API.src.Services
+namespace StudentConnect.API.src.Interface
 {
     public interface IUserService
     {
         public Task<IEnumerable<UserDto>> GetAllAsync();
 
-        public Task RegisterAsync(RegisterUserDto registerUserDto);
+        Task<RegistrationResponseDto> RegisterAsync(RegisterUserDto registerUserDto);
 
-        public Task<string> LoginAsync(LoginUserDto loginUserDto);
+        Task<LoginResponseDto> LoginAsync(LoginUserDto loginUserDto);
 
         public Task SetStatusesAsync(List<string> userIds, Status status);
 
-        public Task DeleteUsersAsync(List<string> userIds);
+        public Task DeleteUserAsync(string userId);
+
 
         public Task<bool> IsUserBanned(string username);
     }

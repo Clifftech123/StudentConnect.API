@@ -20,14 +20,20 @@ namespace StudentConnect.API.src.Repositories
             _userManager = userManager;
         }
 
-        public async Task DeleteUsersAsync(List<string> userIds)
+        public async Task DeleteUserAsync(string userId)
         {
-            var usersToDelete = await _users.Where(u => userIds.Contains(u.Id)).ToListAsync();
+            var userToDelete = await _users.FirstOrDefaultAsync(u => u.Id == userId);
 
-            _users.RemoveRange(usersToDelete);
+            if (userToDelete == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            _users.Remove(userToDelete);
 
             await SaveChangesAsync();
         }
+
 
         // Get all user from the database 
         public async Task<IEnumerable<User>> GetAllAsync()

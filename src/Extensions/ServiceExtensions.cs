@@ -3,8 +3,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using StudentConnect.API.src.Data;
+using StudentConnect.API.src.Interface;
 using StudentConnect.API.src.Middlewares;
 using StudentConnect.API.src.Models.Data;
+using StudentConnect.API.src.Repositories;
+using StudentConnect.API.src.Services;
 using StudentConnect.API.src.Settings;
 using System.Text;
 
@@ -12,35 +15,38 @@ namespace StudentConnect.API.src.Extensions
 {
     public static class ServiceExtensions
     {
+        // Constants for configuration sections
+        private const string ConnectionStringName = "ConnectionString";
+        private const string JwtOptionsSectionName = "JwtOptions";
 
-
-
-        // method to connect to the database 
+        // Method to configure the database context with a connection string from configuration
         public static IServiceCollection ConfigureMsSqlServer(this IServiceCollection services, IConfiguration config)
         {
-            var connectionString = config.GetConnectionString("ConnectionString");
+            var connectionString = config.GetConnectionString(ConnectionStringName);
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
             return services;
         }
 
+        // Method to configure business services for dependency injection
+        public static IServiceCollection ConfigureBusinessServices(this IServiceCollection services)
+        {
+            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
-        public static IServiceCollection ConfigureBusinessServices(this IServiceCollection services) {
-            // Todo ging to add servicde and Respository here 
-        
+            return services;
         }
 
-
-        // Reister error handle here 
-
+        // Method to append the global error handler middleware to the pipeline
         public static void AppendGlobalErrorHandler(this IApplicationBuilder builder)
         {
             builder.UseMiddleware<GlobalErrorHandler>();
         }
 
-
-        public static IServiceCollection ConfigureBusinessServices(this IServiceCollection services, IConfiguration config)
+        // Method to configure JWT authentication
+        public static IServiceCollection ConfigureJwtAuthentication(this IServiceCollection services, IConfiguration config)
         {
-            var jwtSection = config.GetSection("JwtOptions");
+            var jwtSection = config.GetSection(JwtOptionsSectionName);
             services.Configure<JwtOptions>(jwtSection);
             var jwtOptions = jwtSection.Get<JwtOptions>();
 
@@ -61,14 +67,15 @@ namespace StudentConnect.API.src.Extensions
                        ValidAudience = jwtOptions.Audience,
                        ValidateLifetime = true,
                        IssuerSigningKey = new SymmetricSecurityKey(
-                           Encoding.UTF8.GetBytes(jwtOptions.Secret)
+                       Encoding.UTF8.GetBytes(jwtOptions.Secret)
                        ),
                        ValidateIssuerSigningKey = true
                    };
                });
             return services;
-
         }
+
+        // Method to configure Identity
         public static IServiceCollection ConfigureIdentity(this IServiceCollection services, IConfiguration config)
         {
             services
@@ -85,8 +92,7 @@ namespace StudentConnect.API.src.Extensions
             });
             return services;
         }
-
     }
 
-   
+
 }

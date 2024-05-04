@@ -18,7 +18,8 @@ namespace StudentConnect.API.src.Repositories
 
         public Task SetStatusesAsync(List<string> userIds, Status status);
 
-        public Task DeleteUsersAsync(List<string> userIds);
+        public Task DeleteUserAsync(string userId);
+
 
         public Task SaveChangesAsync();
     }

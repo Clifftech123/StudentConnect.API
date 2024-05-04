@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using StudentConnect.API.src.Interface;
 using StudentConnect.API.src.Models.Data;
 using StudentConnect.API.src.Settings;
 using System.IdentityModel.Tokens.Jwt;
@@ -11,6 +12,7 @@ namespace StudentConnect.API.src.Services
     public class JwtTokenGenerator : IJwtTokenGenerator
     {
         private readonly JwtOptions _jwtOptions;
+      
 
         public JwtTokenGenerator(IOptions<JwtOptions> jwtOptions)
         {
@@ -29,8 +31,9 @@ namespace StudentConnect.API.src.Services
 
             var jwkey = _jwtOptions.Secret;
             SymmetricSecurityKey securityKey = new SymmetricSecurityKey(
-              Encoding.UTF8.GetBytes(jwtKey)
+              Encoding.UTF8.GetBytes(jwkey)
           );
+
 
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
